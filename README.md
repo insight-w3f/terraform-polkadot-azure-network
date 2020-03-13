@@ -1,7 +1,7 @@
 # terraform-polkadot-azure-network
 
-[![open-issues](https://img.shields.io/github/issues-raw/shinyfoil/terraform-polkadot-azure-network?style=for-the-badge)](https://github.com/shinyfoil/terraform-polkadot-azure-network/issues)
-[![open-pr](https://img.shields.io/github/issues-pr-raw/shinyfoil/terraform-polkadot-azure-network?style=for-the-badge)](https://github.com/shinyfoil/terraform-polkadot-azure-network/pulls)
+[![open-issues](https://img.shields.io/github/issues-raw/insight-infrastructure/terraform-polkadot-azure-network?style=for-the-badge)](https://github.com/insight-infrastructure/terraform-polkadot-azure-network/issues)
+[![open-pr](https://img.shields.io/github/issues-pr-raw/insight-infrastructure/terraform-polkadot-azure-network?style=for-the-badge)](https://github.com/insight-infrastructure/terraform-polkadot-azure-network/pulls)
 
 ## Features
 
@@ -15,13 +15,13 @@ For Terraform v0.12.0+
 
 ```
 module "this" {
-    source = "github.com/shinyfoil/terraform-polkadot-azure-network"
+    source = "github.com/insight-infrastructure/terraform-polkadot-azure-network"
 
 }
 ```
 ## Examples
 
-- [defaults](https://github.com/shinyfoil/terraform-polkadot-azure-network/tree/master/examples/defaults)
+- [defaults](https://github.com/insight-infrastructure/terraform-polkadot-azure-network/tree/master/examples/defaults)
 
 ## Known  Issues
 No issue is creating limit on this module.
