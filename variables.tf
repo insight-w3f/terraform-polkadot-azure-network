@@ -70,6 +70,12 @@ variable "bastion_enabled" {
   default     = false
 }
 
+variable "consul_enabled" {
+  description = "Boolean to allow consul traffic"
+  type        = bool
+  default     = false
+}
+
 variable "monitoring_enabled" {
   description = "Boolean to for prometheus related traffic"
   type        = bool
@@ -80,4 +86,10 @@ variable "bastion_sg_name" {
   description = "Name for the bastion security group"
   type        = string
   default     = "bastion-sg"
+}
+
+variable "consul_sg_name" {
+  description = "Name for the consult security group"
+  type        = string
+  default     = "consul-sg"
 }
