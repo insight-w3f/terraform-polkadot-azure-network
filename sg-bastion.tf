@@ -1,4 +1,5 @@
 resource "azurerm_network_security_group" "bastion_nsg" {
+  count               = var.bastion_enabled ? 1 : 0
   location            = data.azurerm_resource_group.this.location
   name                = "${var.bastion_sg_name}-nsg"
   resource_group_name = data.azurerm_resource_group.this.name
@@ -6,6 +7,7 @@ resource "azurerm_network_security_group" "bastion_nsg" {
 }
 
 resource "azurerm_application_security_group" "bastion_asg" {
+  count               = var.bastion_enabled ? 1 : 0
   location            = data.azurerm_resource_group.this.location
   name                = "${var.bastion_sg_name}-asg"
   resource_group_name = data.azurerm_resource_group.this.name
@@ -17,14 +19,14 @@ resource "azurerm_network_security_rule" "bastion_sg_ssh" {
   name                        = "${var.bastion_sg_name}-ssh"
   access                      = "Allow"
   direction                   = "Inbound"
-  network_security_group_name = azurerm_network_security_group.bastion_nsg.name
+  network_security_group_name = azurerm_network_security_group.bastion_nsg[0].name
   priority                    = 100
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_address_prefixes                    = var.corporate_ip == "" ? ["0.0.0.0/0"] : ["${var.corporate_ip}/32"]
   source_port_range                          = "22"
-  destination_application_security_group_ids = [azurerm_application_security_group.bastion_asg.name]
+  destination_application_security_group_ids = [azurerm_application_security_group.bastion_asg[0].name]
 }
 
 resource "azurerm_network_security_rule" "bastion_sg_mon" {
@@ -32,7 +34,7 @@ resource "azurerm_network_security_rule" "bastion_sg_mon" {
   name                        = "${var.bastion_sg_name}-monitoring"
   access                      = "Allow"
   direction                   = "Inbound"
-  network_security_group_name = azurerm_network_security_group.bastion_nsg.name
+  network_security_group_name = azurerm_network_security_group.bastion_nsg[0].name
   priority                    = 100
   resource_group_name         = data.azurerm_resource_group.this.name
 
