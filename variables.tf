@@ -123,3 +123,9 @@ variable "logging_sg_name" {
   type        = string
   default     = "logging-sg"
 }
+
+variable "sentry_node_sg_name" {
+  description = "Name for the public node security group"
+  type        = string
+  default     = "sentry-sg"
+}

@@ -54,6 +54,7 @@ No issue is creating limit on this module.
 | namespace | The namespace to deploy into | `string` | `""` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | `""` | no |
 | owner | n/a | `string` | `""` | no |
+| sentry\_node\_sg\_name | Name for the public node security group | `string` | `"sentry-sg"` | no |
 | stage | The stage of the deployment | `string` | `""` | no |
 | vpc\_name | The name of the VPC | `string` | `"polkadot"` | no |
 
