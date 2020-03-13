@@ -38,8 +38,12 @@ No issue is creating limit on this module.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
 | azure\_resource\_group\_name | Name of Azure Resource Group | `string` | n/a | yes |
+| bastion\_enabled | Boolean to enable a bastion host.  All ssh traffic restricted to bastion | `bool` | `false` | no |
+| bastion\_sg\_name | Name for the bastion security group | `string` | `"bastion-sg"` | no |
 | cidr | The cidr range for network | `string` | `"10.0.0.0/16"` | no |
+| corporate\_ip | The corporate IP you want to restrict ssh traffic to | `string` | `""` | no |
 | environment | The environment | `string` | `""` | no |
+| monitoring\_enabled | Boolean to for prometheus related traffic | `bool` | `false` | no |
 | namespace | The namespace to deploy into | `string` | `""` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | `""` | no |
 | owner | n/a | `string` | `""` | no |

@@ -53,3 +53,31 @@ variable "cidr" {
   type        = string
   default     = "10.0.0.0/16"
 }
+
+##################
+# Security Groups
+##################
+
+variable "corporate_ip" {
+  description = "The corporate IP you want to restrict ssh traffic to"
+  type        = string
+  default     = ""
+}
+
+variable "bastion_enabled" {
+  description = "Boolean to enable a bastion host.  All ssh traffic restricted to bastion"
+  type        = bool
+  default     = false
+}
+
+variable "monitoring_enabled" {
+  description = "Boolean to for prometheus related traffic"
+  type        = bool
+  default     = false
+}
+
+variable "bastion_sg_name" {
+  description = "Name for the bastion security group"
+  type        = string
+  default     = "bastion-sg"
+}
