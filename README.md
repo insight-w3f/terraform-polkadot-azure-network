@@ -62,7 +62,21 @@ No issue is creating limit on this module.
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| asdf | n/a |
+| bastion\_security\_group\_id | Name of the application security group for the bastion host |
+| consul\_security\_group\_id | Name of the application security group for the Consul servers |
+| hids\_security\_group\_id | Name of the application security group for the HIDS group |
+| logging\_security\_group\_id | Name of the application security group for the logging group |
+| monitoring\_security\_group\_id | Name of the application security group for the monitoring group |
+| private\_subnets | The IDs of the private subnets |
+| private\_subnets\_cidr\_blocks | CIDR ranges for the private subnets |
+| public\_subnet\_cidr\_blocks | CIDR ranges for the public subnets |
+| public\_subnets | The IDs of the public subnets |
+| sentry\_security\_group\_id | Name of the application security group for the sentry group |
+| vault\_security\_group\_id | Name of the application security group for the vault group |
+| vpc\_id | The name of the VPC |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
