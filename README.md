@@ -47,6 +47,8 @@ No issue is creating limit on this module.
 | environment | The environment | `string` | `""` | no |
 | hids\_enabled | Boolean to enable intrusion detection systems traffic | `bool` | `false` | no |
 | hids\_sg\_name | Name for the HIDS security group | `string` | `"hids-sg"` | no |
+| logging\_enabled | Boolean to allow logging related traffic | `bool` | `false` | no |
+| logging\_sg\_name | Name for the logging security group | `string` | `"logging-sg"` | no |
 | monitoring\_enabled | Boolean to for prometheus related traffic | `bool` | `false` | no |
 | namespace | The namespace to deploy into | `string` | `""` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | `""` | no |

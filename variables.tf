@@ -88,6 +88,12 @@ variable "hids_enabled" {
   default     = false
 }
 
+variable "logging_enabled" {
+  description = "Boolean to allow logging related traffic"
+  type        = bool
+  default     = false
+}
+
 variable "bastion_sg_name" {
   description = "Name for the bastion security group"
   type        = string
@@ -104,4 +110,10 @@ variable "hids_sg_name" {
   description = "Name for the HIDS security group"
   type        = string
   default     = "hids-sg"
+}
+
+variable "logging_sg_name" {
+  description = "Name for the logging security group"
+  type        = string
+  default     = "logging-sg"
 }
