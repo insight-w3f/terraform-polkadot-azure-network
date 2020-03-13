@@ -50,6 +50,7 @@ No issue is creating limit on this module.
 | logging\_enabled | Boolean to allow logging related traffic | `bool` | `false` | no |
 | logging\_sg\_name | Name for the logging security group | `string` | `"logging-sg"` | no |
 | monitoring\_enabled | Boolean to for prometheus related traffic | `bool` | `false` | no |
+| monitoring\_sg\_name | Name for the monitoring security group | `string` | `"monitoring-sg"` | no |
 | namespace | The namespace to deploy into | `string` | `""` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | `""` | no |
 | owner | n/a | `string` | `""` | no |

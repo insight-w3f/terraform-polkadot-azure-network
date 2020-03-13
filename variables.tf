@@ -106,6 +106,12 @@ variable "consul_sg_name" {
   default     = "consul-sg"
 }
 
+variable "monitoring_sg_name" {
+  description = "Name for the monitoring security group"
+  type        = string
+  default     = "monitoring-sg"
+}
+
 variable "hids_sg_name" {
   description = "Name for the HIDS security group"
   type        = string
