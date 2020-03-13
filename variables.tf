@@ -94,6 +94,12 @@ variable "logging_enabled" {
   default     = false
 }
 
+variable "vault_enabled" {
+  description = "Boolean to allow vault related traffic"
+  type        = bool
+  default     = false
+}
+
 variable "bastion_sg_name" {
   description = "Name for the bastion security group"
   type        = string
@@ -128,4 +134,10 @@ variable "sentry_node_sg_name" {
   description = "Name for the public node security group"
   type        = string
   default     = "sentry-sg"
+}
+
+variable "vault_sg_name" {
+  description = "Name for the vault security group"
+  type        = string
+  default     = "vault-sg"
 }
