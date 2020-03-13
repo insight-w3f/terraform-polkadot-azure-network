@@ -45,6 +45,8 @@ No issue is creating limit on this module.
 | consul\_sg\_name | Name for the consult security group | `string` | `"consul-sg"` | no |
 | corporate\_ip | The corporate IP you want to restrict ssh traffic to | `string` | `""` | no |
 | environment | The environment | `string` | `""` | no |
+| hids\_enabled | Boolean to enable intrusion detection systems traffic | `bool` | `false` | no |
+| hids\_sg\_name | Name for the HIDS security group | `string` | `"hids-sg"` | no |
 | monitoring\_enabled | Boolean to for prometheus related traffic | `bool` | `false` | no |
 | namespace | The namespace to deploy into | `string` | `""` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | `""` | no |

@@ -82,6 +82,12 @@ variable "monitoring_enabled" {
   default     = false
 }
 
+variable "hids_enabled" {
+  description = "Boolean to enable intrusion detection systems traffic"
+  type        = bool
+  default     = false
+}
+
 variable "bastion_sg_name" {
   description = "Name for the bastion security group"
   type        = string
@@ -92,4 +98,10 @@ variable "consul_sg_name" {
   description = "Name for the consult security group"
   type        = string
   default     = "consul-sg"
+}
+
+variable "hids_sg_name" {
+  description = "Name for the HIDS security group"
+  type        = string
+  default     = "hids-sg"
 }
