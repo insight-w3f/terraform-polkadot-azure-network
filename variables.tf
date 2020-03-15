@@ -40,6 +40,39 @@ variable "azure_resource_group_name" {
 }
 
 ######
+# DNS
+######
+variable "internal_tld" {
+  description = "The top level domain for the internal DNS"
+  type        = string
+  default     = "internal"
+}
+
+variable "root_domain_name" {
+  description = "The public domain"
+  type        = string
+  default     = ""
+}
+
+variable "create_internal_domain" {
+  description = "Boolean to create an internal split horizon DNS"
+  type        = bool
+  default     = false
+}
+
+variable "create_public_regional_subdomain" {
+  description = "Boolean to create regional subdomain - ie us-east-1.example.com"
+  type        = bool
+  default     = false
+}
+
+variable "zone_id" {
+  description = "The zone ID to configure as the root zone - ie subdomain.example.com's zone ID"
+  type        = string
+  default     = ""
+}
+
+######
 # VPC
 ######
 variable "vpc_name" {
