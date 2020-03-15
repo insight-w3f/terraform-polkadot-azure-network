@@ -1,4 +1,22 @@
 #####
+# DNS
+#####
+output "root_domain_name" {
+  value       = var.root_domain_name
+  description = "The name of the root domain"
+}
+
+output "internal_tld" {
+  value       = var.internal_tld
+  description = "The name of the internal domain"
+}
+
+output "public_regional_domain" {
+  value       = var.create_public_regional_subdomain ? local.public_domain : ""
+  description = "The public regional domain"
+}
+
+#####
 # SGs
 #####
 output "bastion_security_group_id" {
