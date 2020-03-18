@@ -25,6 +25,6 @@ resource "azurerm_dns_ns_record" "region_public" {
   name                = local.public_domain
   resource_group_name = data.azurerm_resource_group.this.name
   ttl                 = 30
-  zone_name           = azurerm_dns_zone.region_public.name
+  zone_name           = azurerm_dns_zone.region_public[0].name
   records             = [azurerm_dns_zone.region_public[0].name_servers]
 }
