@@ -20,37 +20,37 @@ output "public_regional_domain" {
 # SGs
 #####
 output "bastion_security_group_id" {
-  value       = azurerm_application_security_group.bastion_asg.*.name
+  value       = azurerm_application_security_group.bastion_asg.*.id
   description = "Name of the application security group for the bastion host"
 }
 
 output "consul_security_group_id" {
-  value       = azurerm_application_security_group.consul_asg.*.name
+  value       = azurerm_application_security_group.consul_asg.*.id
   description = "Name of the application security group for the Consul servers"
 }
 
 output "hids_security_group_id" {
-  value       = azurerm_application_security_group.hids_asg.*.name
+  value       = azurerm_application_security_group.hids_asg.*.id
   description = "Name of the application security group for the HIDS group"
 }
 
 output "logging_security_group_id" {
-  value       = azurerm_application_security_group.consul_asg.*.name
+  value       = azurerm_application_security_group.consul_asg.*.id
   description = "Name of the application security group for the logging group"
 }
 
 output "monitoring_security_group_id" {
-  value       = azurerm_application_security_group.monitoring_asg.*.name
+  value       = azurerm_application_security_group.monitoring_asg.*.id
   description = "Name of the application security group for the monitoring group"
 }
 
 output "sentry_security_group_id" {
-  value       = azurerm_application_security_group.sentry_node_asg.*.name
+  value       = azurerm_application_security_group.sentry_node_asg.*.id
   description = "Name of the application security group for the sentry group"
 }
 
 output "vault_security_group_id" {
-  value       = azurerm_application_security_group.vault_asg.*.name
+  value       = azurerm_application_security_group.vault_asg.*.id
   description = "Name of the application security group for the vault group"
 }
 
@@ -68,12 +68,12 @@ output "vpc_id" {
 }
 
 output "public_subnets" {
-  value       = azurerm_subnet.public.*.name
+  value       = azurerm_subnet.public.*.id
   description = "The IDs of the public subnets"
 }
 
 output "private_subnets" {
-  value       = azurerm_subnet.private.*.name
+  value       = azurerm_subnet.private.*.id
   description = "The IDs of the private subnets"
 }
 
