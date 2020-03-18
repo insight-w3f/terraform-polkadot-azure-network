@@ -26,7 +26,8 @@ resource "azurerm_network_security_rule" "monitoring_sg_ssh" {
   protocol                                   = "tcp"
   source_address_prefixes                    = var.corporate_ip == "" ? ["0.0.0.0/0"] : ["${var.corporate_ip}/32"]
   source_port_range                          = "22"
-  destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].name]
+  destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].id]
+  destination_port_range                     = "22"
 }
 
 resource "azurerm_network_security_rule" "monitoring_sg_bastion_ssh" {
@@ -39,9 +40,10 @@ resource "azurerm_network_security_rule" "monitoring_sg_bastion_ssh" {
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
-  source_application_security_group_ids      = [azurerm_application_security_group.bastion_asg[0].name]
+  source_application_security_group_ids      = [azurerm_application_security_group.bastion_asg[0].id]
   source_port_range                          = "22"
-  destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].name]
+  destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].id]
+  destination_port_range                     = "22"
 }
 
 resource "azurerm_network_security_rule" "monitoring_sg_http_ingress" {
@@ -56,7 +58,8 @@ resource "azurerm_network_security_rule" "monitoring_sg_http_ingress" {
   protocol                                   = "tcp"
   source_address_prefix                      = "0.0.0.0/0"
   source_port_range                          = "80"
-  destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].name]
+  destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].id]
+  destination_port_range                     = "80"
 }
 
 resource "azurerm_network_security_rule" "monitoring_sg_consul" {
@@ -69,10 +72,14 @@ resource "azurerm_network_security_rule" "monitoring_sg_consul" {
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                              = "*"
-  source_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].name]
+  source_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].id]
   source_port_ranges = ["8600",
     "8500",
     "8301",
   "8302"]
-  destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].name]
+  destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].id]
+  destination_port_ranges = ["8600",
+    "8500",
+    "8301",
+  "8302"]
 }

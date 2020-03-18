@@ -26,7 +26,8 @@ resource "azurerm_network_security_rule" "vault_sg_ssh" {
   protocol                                   = "tcp"
   source_address_prefixes                    = var.corporate_ip == "" ? ["0.0.0.0/0"] : ["${var.corporate_ip}/32"]
   source_port_range                          = "22"
-  destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].name]
+  destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].id]
+  destination_port_range                     = "22"
 }
 
 resource "azurerm_network_security_rule" "vault_sg_bastion_ssh" {
@@ -39,9 +40,10 @@ resource "azurerm_network_security_rule" "vault_sg_bastion_ssh" {
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
-  source_application_security_group_ids      = [azurerm_application_security_group.bastion_asg[0].name]
+  source_application_security_group_ids      = [azurerm_application_security_group.bastion_asg[0].id]
   source_port_range                          = "22"
-  destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].name]
+  destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].id]
+  destination_port_range                     = "22"
 }
 
 resource "azurerm_network_security_rule" "vault_sg_mon" {
@@ -54,9 +56,10 @@ resource "azurerm_network_security_rule" "vault_sg_mon" {
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
-  source_application_security_group_ids      = [azurerm_application_security_group.monitoring_asg[0].name]
+  source_application_security_group_ids      = [azurerm_application_security_group.monitoring_asg[0].id]
   source_port_ranges                         = ["9100", "9333"]
-  destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].name]
+  destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].id]
+  destination_port_ranges                    = ["9100", "9333"]
 }
 
 resource "azurerm_network_security_rule" "vault_sg_consul" {
@@ -69,12 +72,16 @@ resource "azurerm_network_security_rule" "vault_sg_consul" {
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                              = "*"
-  source_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].name]
+  source_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].id]
   source_port_ranges = ["8600",
     "8500",
     "8301",
   "8302"]
-  destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].name]
+  destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].id]
+  destination_port_ranges = ["8600",
+    "8500",
+    "8301",
+  "8302"]
 }
 
 resource "azurerm_network_security_rule" "vault_sg_various" {
@@ -90,5 +97,7 @@ resource "azurerm_network_security_rule" "vault_sg_various" {
   source_address_prefix = "0.0.0.0/0"
   source_port_ranges = ["8200",
   "8201"]
-  destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].name]
+  destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].id]
+  destination_port_ranges = ["8200",
+  "8201"]
 }

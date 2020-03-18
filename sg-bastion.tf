@@ -26,7 +26,8 @@ resource "azurerm_network_security_rule" "bastion_sg_ssh" {
   protocol                                   = "tcp"
   source_address_prefixes                    = var.corporate_ip == "" ? ["0.0.0.0/0"] : ["${var.corporate_ip}/32"]
   source_port_range                          = "22"
-  destination_application_security_group_ids = [azurerm_application_security_group.bastion_asg[0].name]
+  destination_application_security_group_ids = [azurerm_application_security_group.bastion_asg[0].id]
+  destination_port_range                     = "22"
 }
 
 resource "azurerm_network_security_rule" "bastion_sg_mon" {
@@ -39,7 +40,7 @@ resource "azurerm_network_security_rule" "bastion_sg_mon" {
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                              = "tcp"
-  source_application_security_group_ids = var.monitoring_enabled ? [azurerm_application_security_group.monitoring_sg[*].name] : []
+  source_application_security_group_ids = var.monitoring_enabled ? [azurerm_application_security_group.monitoring_asg[*].id] : []
   source_port_ranges = [
     "9100",
   "9428"]
