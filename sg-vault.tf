@@ -92,7 +92,7 @@ resource "azurerm_network_security_rule" "vault_sg_various" {
 
   protocol                                   = "tcp"
   source_address_prefix                      = "0.0.0.0/0"
-  source_port_rangee                         = "*"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.vault_asg[0].id]
   destination_port_ranges = ["8200",
   "8201"]

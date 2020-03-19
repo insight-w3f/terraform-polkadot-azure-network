@@ -122,7 +122,7 @@ resource "azurerm_network_security_rule" "sentry_node_sg_api" {
 
   protocol                                   = "*"
   source_address_prefix                      = "0.0.0.0/0"
-  source_port_range                          = ""
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
   destination_port_ranges                    = ["5500", "9933"]
 }
