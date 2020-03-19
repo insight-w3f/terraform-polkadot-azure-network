@@ -20,12 +20,12 @@ resource "azurerm_network_security_rule" "consul_sg_ssh" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.consul_nsg[0].name
-  priority                    = 100
+  priority                    = 300
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_address_prefixes                    = var.corporate_ip == "" ? ["0.0.0.0/0"] : ["${var.corporate_ip}/32"]
-  source_port_range                          = "22"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].id]
   destination_port_range                     = "22"
 }
@@ -36,12 +36,12 @@ resource "azurerm_network_security_rule" "consul_sg_bastion_ssh" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.consul_nsg[0].name
-  priority                    = 100
+  priority                    = 301
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_application_security_group_ids      = [azurerm_application_security_group.bastion_asg[0].id]
-  source_port_range                          = "22"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].id]
   destination_port_range                     = "22"
 }
@@ -52,12 +52,12 @@ resource "azurerm_network_security_rule" "consul_sg_mon_prom" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.consul_nsg[0].name
-  priority                    = 100
+  priority                    = 302
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_application_security_group_ids      = [azurerm_application_security_group.monitoring_asg[0].id]
-  source_port_range                          = "9100"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].id]
   destination_port_range                     = "9100"
 }
@@ -68,12 +68,12 @@ resource "azurerm_network_security_rule" "consul_sg_mon_nordstrom" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.consul_nsg[0].name
-  priority                    = 100
+  priority                    = 303
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_application_security_group_ids      = [azurerm_application_security_group.monitoring_asg[0].id]
-  source_port_range                          = "9428"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].id]
   destination_port_range                     = "9428"
 }

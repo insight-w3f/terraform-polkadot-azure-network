@@ -20,12 +20,12 @@ resource "azurerm_network_security_rule" "monitoring_sg_ssh" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.monitoring_nsg[0].name
-  priority                    = 100
+  priority                    = 600
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_address_prefixes                    = var.corporate_ip == "" ? ["0.0.0.0/0"] : ["${var.corporate_ip}/32"]
-  source_port_range                          = "22"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].id]
   destination_port_range                     = "22"
 }
@@ -36,12 +36,12 @@ resource "azurerm_network_security_rule" "monitoring_sg_bastion_ssh" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.monitoring_nsg[0].name
-  priority                    = 100
+  priority                    = 601
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_application_security_group_ids      = [azurerm_application_security_group.bastion_asg[0].id]
-  source_port_range                          = "22"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].id]
   destination_port_range                     = "22"
 }
@@ -52,12 +52,12 @@ resource "azurerm_network_security_rule" "monitoring_sg_http_ingress" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.monitoring_nsg[0].name
-  priority                    = 100
+  priority                    = 602
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_address_prefix                      = "0.0.0.0/0"
-  source_port_range                          = "80"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].id]
   destination_port_range                     = "80"
 }
@@ -68,15 +68,12 @@ resource "azurerm_network_security_rule" "monitoring_sg_consul" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.monitoring_nsg[0].name
-  priority                    = 100
+  priority                    = 603
   resource_group_name         = data.azurerm_resource_group.this.name
 
-  protocol                              = "*"
-  source_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].id]
-  source_port_ranges = ["8600",
-    "8500",
-    "8301",
-  "8302"]
+  protocol                                   = "*"
+  source_application_security_group_ids      = [azurerm_application_security_group.consul_asg[0].id]
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.monitoring_asg[0].id]
   destination_port_ranges = ["8600",
     "8500",

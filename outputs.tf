@@ -58,22 +58,18 @@ output "vault_security_group_id" {
 # VPC
 #####
 
-output "asdf" {
-  value = azurerm_subnet.public.*.name
-}
-
 output "vpc_id" {
   value       = azurerm_virtual_network.vpc_network.name
   description = "The name of the VPC"
 }
 
 output "public_subnets" {
-  value       = azurerm_subnet.public.*.id
+  value       = azurerm_subnet.public.id
   description = "The IDs of the public subnets"
 }
 
 output "private_subnets" {
-  value       = azurerm_subnet.private.*.id
+  value       = azurerm_subnet.private.id
   description = "The IDs of the private subnets"
 }
 

@@ -25,7 +25,7 @@ resource "azurerm_network_security_rule" "sentry_node_sg_ssh" {
 
   protocol                                   = "tcp"
   source_address_prefixes                    = var.corporate_ip == "" ? ["0.0.0.0/0"] : ["${var.corporate_ip}/32"]
-  source_port_range                          = "22"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
   destination_port_range                     = "22"
 }
@@ -41,7 +41,7 @@ resource "azurerm_network_security_rule" "sentry_node_sg_bastion_ssh" {
 
   protocol                                   = "tcp"
   source_application_security_group_ids      = [azurerm_application_security_group.bastion_asg[0].id]
-  source_port_range                          = "22"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
   destination_port_range                     = "22"
 }
@@ -57,7 +57,7 @@ resource "azurerm_network_security_rule" "sentry_node_sg_mon" {
 
   protocol                                   = "tcp"
   source_application_security_group_ids      = [azurerm_application_security_group.monitoring_asg[0].id]
-  source_port_ranges                         = ["9100", "9323"]
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
   destination_port_ranges                    = ["9100", "9323"]
 }
@@ -73,7 +73,7 @@ resource "azurerm_network_security_rule" "sentry_node_sg_hids" {
 
   protocol                                   = "tcp"
   source_application_security_group_ids      = [azurerm_application_security_group.monitoring_asg[0].id]
-  source_port_ranges                         = ["1514", "1515"]
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
   destination_port_ranges                    = ["1514", "1515"]
 }
@@ -87,12 +87,9 @@ resource "azurerm_network_security_rule" "sentry_node_sg_consul" {
   priority                    = 104
   resource_group_name         = data.azurerm_resource_group.this.name
 
-  protocol                              = "*"
-  source_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].id]
-  source_port_ranges = ["8600",
-    "8500",
-    "8301",
-  "8302"]
+  protocol                                   = "*"
+  source_application_security_group_ids      = [azurerm_application_security_group.consul_asg[0].id]
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
   destination_port_ranges = ["8600",
     "8500",
@@ -110,7 +107,22 @@ resource "azurerm_network_security_rule" "sentry_node_sg_p2p" {
 
   protocol                                   = "*"
   source_address_prefix                      = "0.0.0.0/0"
-  source_port_ranges                         = ["30333", "51820"]
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
   destination_port_ranges                    = ["30333", "51820"]
+}
+
+resource "azurerm_network_security_rule" "sentry_node_sg_api" {
+  name                        = "${var.sentry_node_sg_name}-api"
+  access                      = "Allow"
+  direction                   = "Inbound"
+  network_security_group_name = azurerm_network_security_group.sentry_node_nsg[0].name
+  priority                    = 106
+  resource_group_name         = data.azurerm_resource_group.this.name
+
+  protocol                                   = "*"
+  source_address_prefix                      = "0.0.0.0/0"
+  source_port_range                          = ""
+  destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
+  destination_port_ranges                    = ["5500", "9933"]
 }

@@ -69,7 +69,6 @@ No issue is creating limit on this module.
 
 | Name | Description |
 |------|-------------|
-| asdf | n/a |
 | bastion\_security\_group\_id | Name of the application security group for the bastion host |
 | consul\_security\_group\_id | Name of the application security group for the Consul servers |
 | hids\_security\_group\_id | Name of the application security group for the HIDS group |

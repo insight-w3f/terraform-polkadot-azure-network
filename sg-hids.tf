@@ -20,12 +20,12 @@ resource "azurerm_network_security_rule" "hids_sg_ssh" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.hids_nsg[0].name
-  priority                    = 100
+  priority                    = 400
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_address_prefixes                    = var.corporate_ip == "" ? ["0.0.0.0/0"] : ["${var.corporate_ip}/32"]
-  source_port_range                          = "22"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.hids_asg[0].id]
   destination_port_range                     = "22"
 }
@@ -36,12 +36,12 @@ resource "azurerm_network_security_rule" "hids_sg_mon_prom" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.hids_nsg[0].name
-  priority                    = 100
+  priority                    = 401
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_application_security_group_ids      = [azurerm_application_security_group.monitoring_asg[0].id]
-  source_port_range                          = "9100"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.hids_asg[0].id]
   destination_port_range                     = "9100"
 }
@@ -52,12 +52,12 @@ resource "azurerm_network_security_rule" "hids_sg_mon_nordstrom" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.hids_nsg[0].name
-  priority                    = 100
+  priority                    = 402
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_application_security_group_ids      = [azurerm_application_security_group.monitoring_asg[0].id]
-  source_port_range                          = "9108"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.hids_asg[0].id]
   destination_port_range                     = "9108"
 }
@@ -68,12 +68,12 @@ resource "azurerm_network_security_rule" "hids_sg_http_ingress" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.hids_nsg[0].name
-  priority                    = 100
+  priority                    = 403
   resource_group_name         = data.azurerm_resource_group.this.name
 
   protocol                                   = "tcp"
   source_address_prefix                      = "0.0.0.0/0"
-  source_port_range                          = "80"
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.hids_asg[0].id]
   destination_port_range                     = "80"
 }
@@ -84,15 +84,12 @@ resource "azurerm_network_security_rule" "hids_sg_consul" {
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.hids_nsg[0].name
-  priority                    = 100
+  priority                    = 404
   resource_group_name         = data.azurerm_resource_group.this.name
 
-  protocol                              = "*"
-  source_application_security_group_ids = [azurerm_application_security_group.consul_asg[0].id]
-  source_port_ranges = ["8600",
-    "8500",
-    "8301",
-  "8302"]
+  protocol                                   = "*"
+  source_application_security_group_ids      = [azurerm_application_security_group.consul_asg[0].id]
+  source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.hids_asg[0].id]
   destination_port_ranges = ["8600",
     "8500",
