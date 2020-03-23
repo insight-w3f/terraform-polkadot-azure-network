@@ -64,12 +64,12 @@ output "vpc_id" {
 }
 
 output "public_subnets" {
-  value       = azurerm_subnet.public.id
+  value       = azurerm_subnet.public.*.id
   description = "The IDs of the public subnets"
 }
 
 output "private_subnets" {
-  value       = azurerm_subnet.private.id
+  value       = azurerm_subnet.private.*.id
   description = "The IDs of the private subnets"
 }
 
