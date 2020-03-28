@@ -19,39 +19,74 @@ output "public_regional_domain" {
 #####
 # SGs
 #####
-output "bastion_security_group_id" {
+output "bastion_application_security_group_id" {
   value       = azurerm_application_security_group.bastion_asg.*.id
   description = "Name of the application security group for the bastion host"
 }
 
-output "consul_security_group_id" {
+output "consul_application_security_group_id" {
   value       = azurerm_application_security_group.consul_asg.*.id
   description = "Name of the application security group for the Consul servers"
 }
 
-output "hids_security_group_id" {
+output "hids_application_security_group_id" {
   value       = azurerm_application_security_group.hids_asg.*.id
   description = "Name of the application security group for the HIDS group"
 }
 
-output "logging_security_group_id" {
+output "logging_application_security_group_id" {
   value       = azurerm_application_security_group.consul_asg.*.id
   description = "Name of the application security group for the logging group"
 }
 
-output "monitoring_security_group_id" {
+output "monitoring_application_security_group_id" {
   value       = azurerm_application_security_group.monitoring_asg.*.id
   description = "Name of the application security group for the monitoring group"
 }
 
-output "sentry_security_group_id" {
+output "sentry_application_security_group_id" {
   value       = azurerm_application_security_group.sentry_node_asg.*.id
   description = "Name of the application security group for the sentry group"
 }
 
-output "vault_security_group_id" {
+output "vault_application_security_group_id" {
   value       = azurerm_application_security_group.vault_asg.*.id
   description = "Name of the application security group for the vault group"
+}
+
+output "bastion_network_security_group_id" {
+  value       = azurerm_network_security_group.bastion_nsg.*.id
+  description = "Name of the network security group for the bastion host"
+}
+
+output "consul_network_security_group_id" {
+  value       = azurerm_network_security_group.consul_nsg.*.id
+  description = "Name of the network security group for the Consul servers"
+}
+
+output "hids_network_security_group_id" {
+  value       = azurerm_network_security_group.hids_nsg.*.id
+  description = "Name of the network security group for the HIDS group"
+}
+
+output "logging_network_security_group_id" {
+  value       = azurerm_network_security_group.consul_nsg.*.id
+  description = "Name of the network security group for the logging group"
+}
+
+output "monitoring_network_security_group_id" {
+  value       = azurerm_network_security_group.monitoring_nsg.*.id
+  description = "Name of the network security group for the monitoring group"
+}
+
+output "sentry_network_security_group_id" {
+  value       = azurerm_network_security_group.sentry_node_nsg.*.id
+  description = "Name of the network security group for the sentry group"
+}
+
+output "vault_network_security_group_id" {
+  value       = azurerm_network_security_group.vault_nsg.*.id
+  description = "Name of the network security group for the vault group"
 }
 
 #####
