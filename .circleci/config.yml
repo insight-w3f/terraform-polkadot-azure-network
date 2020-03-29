@@ -34,4 +34,4 @@ workflows:
   default:
     jobs:
       - test:
-          context: azure-polkadot-testing
+          context: azure-ci-1
