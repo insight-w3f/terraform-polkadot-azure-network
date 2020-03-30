@@ -98,31 +98,61 @@ resource "azurerm_network_security_rule" "sentry_node_sg_consul" {
 }
 
 resource "azurerm_network_security_rule" "sentry_node_sg_p2p" {
-  name                        = "${var.sentry_node_sg_name}-p2p"
+  name                        = "${var.sentry_node_sg_name}-p2p-tcp"
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.sentry_node_nsg[0].name
   priority                    = 105
   resource_group_name         = data.azurerm_resource_group.this.name
 
-  protocol                                   = "*"
+  protocol                                   = "Tcp"
   source_address_prefix                      = "0.0.0.0/0"
   source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
-  destination_port_ranges                    = ["30333", "51820"]
+  destination_port_ranges                    = ["30333"]
 }
 
-resource "azurerm_network_security_rule" "sentry_node_sg_api" {
-  name                        = "${var.sentry_node_sg_name}-api"
+resource "azurerm_network_security_rule" "sentry_node_sg_p2p" {
+  name                        = "${var.sentry_node_sg_name}-p2p-udp"
   access                      = "Allow"
   direction                   = "Inbound"
   network_security_group_name = azurerm_network_security_group.sentry_node_nsg[0].name
   priority                    = 106
   resource_group_name         = data.azurerm_resource_group.this.name
 
-  protocol                                   = "*"
+  protocol                                   = "Udp"
   source_address_prefix                      = "0.0.0.0/0"
   source_port_range                          = "*"
   destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
-  destination_port_ranges                    = ["5500", "9933"]
+  destination_port_ranges                    = ["51820"]
+}
+
+resource "azurerm_network_security_rule" "sentry_node_sg_api" {
+  name                        = "${var.sentry_node_sg_name}-api-health-check"
+  access                      = "Allow"
+  direction                   = "Inbound"
+  network_security_group_name = azurerm_network_security_group.sentry_node_nsg[0].name
+  priority                    = 107
+  resource_group_name         = data.azurerm_resource_group.this.name
+
+  protocol                                   = "Tcp"
+  source_address_prefix                      = "0.0.0.0/0"
+  source_port_range                          = "*"
+  destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
+  destination_port_ranges                    = ["5500"]
+}
+
+resource "azurerm_network_security_rule" "sentry_node_sg_api" {
+  name                        = "${var.sentry_node_sg_name}-api-rpc"
+  access                      = "Allow"
+  direction                   = "Inbound"
+  network_security_group_name = azurerm_network_security_group.sentry_node_nsg[0].name
+  priority                    = 108
+  resource_group_name         = data.azurerm_resource_group.this.name
+
+  protocol                                   = "Tcp"
+  source_address_prefix                      = "0.0.0.0/0"
+  source_port_range                          = "*"
+  destination_application_security_group_ids = [azurerm_application_security_group.sentry_node_asg[0].id]
+  destination_port_ranges                    = ["9933"]
 }
