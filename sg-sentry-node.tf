@@ -97,7 +97,7 @@ resource "azurerm_network_security_rule" "sentry_node_sg_consul" {
   "8302"]
 }
 
-resource "azurerm_network_security_rule" "sentry_node_sg_p2p" {
+resource "azurerm_network_security_rule" "sentry_node_sg_p2p_tcp" {
   name                        = "${var.sentry_node_sg_name}-p2p-tcp"
   access                      = "Allow"
   direction                   = "Inbound"
@@ -112,7 +112,7 @@ resource "azurerm_network_security_rule" "sentry_node_sg_p2p" {
   destination_port_ranges                    = ["30333"]
 }
 
-resource "azurerm_network_security_rule" "sentry_node_sg_p2p" {
+resource "azurerm_network_security_rule" "sentry_node_sg_p2p_udp" {
   name                        = "${var.sentry_node_sg_name}-p2p-udp"
   access                      = "Allow"
   direction                   = "Inbound"
@@ -127,7 +127,7 @@ resource "azurerm_network_security_rule" "sentry_node_sg_p2p" {
   destination_port_ranges                    = ["51820"]
 }
 
-resource "azurerm_network_security_rule" "sentry_node_sg_api" {
+resource "azurerm_network_security_rule" "sentry_node_sg_api_hc" {
   name                        = "${var.sentry_node_sg_name}-api-health-check"
   access                      = "Allow"
   direction                   = "Inbound"
@@ -142,7 +142,7 @@ resource "azurerm_network_security_rule" "sentry_node_sg_api" {
   destination_port_ranges                    = ["5500"]
 }
 
-resource "azurerm_network_security_rule" "sentry_node_sg_api" {
+resource "azurerm_network_security_rule" "sentry_node_sg_api_rpc" {
   name                        = "${var.sentry_node_sg_name}-api-rpc"
   access                      = "Allow"
   direction                   = "Inbound"
