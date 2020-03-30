@@ -8,7 +8,6 @@ resource "azurerm_resource_group" "this" {
   name     = "asg-default-testing"
 }
 
-
 module "defaults" {
   source                    = "../.."
   azure_resource_group_name = azurerm_resource_group.this.name

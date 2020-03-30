@@ -1,7 +1,7 @@
 # terraform-polkadot-azure-network
 
-[![open-issues](https://img.shields.io/github/issues-raw/insight-infrastructure/terraform-polkadot-azure-network?style=for-the-badge)](https://github.com/insight-infrastructure/terraform-polkadot-azure-network/issues)
-[![open-pr](https://img.shields.io/github/issues-pr-raw/insight-infrastructure/terraform-polkadot-azure-network?style=for-the-badge)](https://github.com/insight-infrastructure/terraform-polkadot-azure-network/pulls)
+[![open-issues](https://img.shields.io/github/issues-raw/insight-w3f/terraform-polkadot-azure-network?style=for-the-badge)](https://github.com/insight-w3f/terraform-polkadot-azure-network/issues)
+[![open-pr](https://img.shields.io/github/issues-pr-raw/insight-w3f/terraform-polkadot-azure-network?style=for-the-badge)](https://github.com/insight-w3f/terraform-polkadot-azure-network/pulls)
 
 ## Features
 
@@ -14,14 +14,20 @@ For Terraform v0.12.0+
 ## Usage
 
 ```
-module "this" {
-    source = "github.com/insight-infrastructure/terraform-polkadot-azure-network"
+resource "azurerm_resource_group" "this" {
+  location = "eastus"
+  name     = "asg-default-testing"
+}
 
+module "defaults" {
+  source                    = "../.."
+  azure_resource_group_name = azurerm_resource_group.this.name
 }
 ```
+
 ## Examples
 
-- [defaults](https://github.com/insight-infrastructure/terraform-polkadot-azure-network/tree/master/examples/defaults)
+- [defaults](https://github.com/insight-w3f/terraform-polkadot-azure-network/tree/master/examples/defaults)
 
 ## Known  Issues
 No issue is creating limit on this module.
