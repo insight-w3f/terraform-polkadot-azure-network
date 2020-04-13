@@ -33,16 +33,23 @@ module "defaults" {
 No issue is creating limit on this module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
 | azurerm | n/a |
+| cloudflare | n/a |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | azure\_resource\_group\_name | Name of Azure Resource Group | `string` | n/a | yes |
 | bastion\_enabled | Boolean to enable a bastion host.  All ssh traffic restricted to bastion | `bool` | `false` | no |
 | bastion\_sg\_name | Name for the bastion security group | `string` | `"bastion-sg"` | no |
