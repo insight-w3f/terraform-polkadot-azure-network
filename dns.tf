@@ -1,5 +1,5 @@
 locals {
-  public_domain = join(".", [data.azurerm_resource_group.this.location, var.environment, "azure", var.network_name, var.root_domain_name])
+  public_domain = join(".", [data.azurerm_resource_group.this.location, "azure", var.network_name, var.root_domain_name])
 }
 
 data cloudflare_zones "this" {
@@ -10,7 +10,7 @@ data cloudflare_zones "this" {
 
 resource "cloudflare_record" "public_delegation" {
   count   = var.root_domain_name == "" ? 0 : 4
-  name    = "azure.${var.network_name}.${var.root_domain_name}"
+  name    = "azure.polkadot.${var.root_domain_name}"
   value   = flatten(azurerm_dns_zone.this[0].name_servers)[count.index]
   type    = "NS"
   zone_id = data.cloudflare_zones.this.zones[0].id
@@ -18,7 +18,7 @@ resource "cloudflare_record" "public_delegation" {
 
 resource "azurerm_dns_zone" "this" {
   count               = var.root_domain_name == "" ? 0 : 1
-  name                = "azure.${var.network_name}.${var.root_domain_name}"
+  name                = "azure.polkadot.${var.root_domain_name}"
   resource_group_name = data.azurerm_resource_group.this.name
 }
 
@@ -36,7 +36,7 @@ resource "azurerm_dns_zone" "region_public" {
 
 resource "azurerm_dns_ns_record" "region_public" {
   count               = var.create_public_regional_subdomain ? 1 : 0
-  name                = local.public_domain
+  name                = data.azurerm_resource_group.this.location
   resource_group_name = data.azurerm_resource_group.this.name
   ttl                 = 30
   zone_name           = azurerm_dns_zone.this[0].name
