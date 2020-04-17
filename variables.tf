@@ -84,7 +84,7 @@ variable "vpc_name" {
 variable "cidr" {
   description = "The cidr range for network"
   type        = string
-  default     = "10.0.0.0/16"
+  default     = "172.16.0.0/16"
 }
 
 ##################

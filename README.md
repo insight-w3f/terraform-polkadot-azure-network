@@ -53,7 +53,7 @@ No issue is creating limit on this module.
 | azure\_resource\_group\_name | Name of Azure Resource Group | `string` | n/a | yes |
 | bastion\_enabled | Boolean to enable a bastion host.  All ssh traffic restricted to bastion | `bool` | `false` | no |
 | bastion\_sg\_name | Name for the bastion security group | `string` | `"bastion-sg"` | no |
-| cidr | The cidr range for network | `string` | `"10.0.0.0/16"` | no |
+| cidr | The cidr range for network | `string` | `"172.16.0.0/16"` | no |
 | consul\_enabled | Boolean to allow consul traffic | `bool` | `false` | no |
 | consul\_sg\_name | Name for the consult security group | `string` | `"consul-sg"` | no |
 | corporate\_ip | The corporate IP you want to restrict ssh traffic to | `string` | `""` | no |
