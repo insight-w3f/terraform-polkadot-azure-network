@@ -85,24 +85,20 @@ No issue is creating limit on this module.
 | bastion\_application\_security\_group\_id | Name of the application security group for the bastion host |
 | bastion\_network\_security\_group\_id | Name of the network security group for the bastion host |
 | consul\_application\_security\_group\_id | Name of the application security group for the Consul servers |
-| consul\_network\_security\_group\_id | Name of the network security group for the Consul servers |
 | hids\_application\_security\_group\_id | Name of the application security group for the HIDS group |
-| hids\_network\_security\_group\_id | Name of the network security group for the HIDS group |
 | internal\_tld | The name of the internal domain |
 | logging\_application\_security\_group\_id | Name of the application security group for the logging group |
-| logging\_network\_security\_group\_id | Name of the network security group for the logging group |
 | monitoring\_application\_security\_group\_id | Name of the application security group for the monitoring group |
-| monitoring\_network\_security\_group\_id | Name of the network security group for the monitoring group |
+| private\_network\_security\_group\_id | Name of the private subnet network security group |
 | private\_subnets | The IDs of the private subnets |
 | private\_subnets\_cidr\_blocks | CIDR ranges for the private subnets |
+| public\_network\_security\_group\_id | Name of the public subnet network security group |
 | public\_regional\_domain | The public regional domain |
 | public\_subnet\_cidr\_blocks | CIDR ranges for the public subnets |
 | public\_subnets | The IDs of the public subnets |
 | root\_domain\_name | The name of the root domain |
 | sentry\_application\_security\_group\_id | Name of the application security group for the sentry group |
-| sentry\_network\_security\_group\_id | Name of the network security group for the sentry group |
 | vault\_application\_security\_group\_id | Name of the application security group for the vault group |
-| vault\_network\_security\_group\_id | Name of the network security group for the vault group |
 | vpc\_id | The name of the VPC |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

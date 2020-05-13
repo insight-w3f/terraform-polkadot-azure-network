@@ -47,7 +47,7 @@ resource "azurerm_network_security_rule" "vault_sg_bastion_ssh" {
 }
 
 resource "azurerm_network_security_rule" "vault_sg_mon" {
-  count                       = var.monitoring_enabled ? 1 : 0
+  count                       = var.vault_enabled && var.monitoring_enabled ? 1 : 0
   name                        = "${var.vault_sg_name}-monitoring"
   access                      = "Allow"
   direction                   = "Inbound"
@@ -63,7 +63,7 @@ resource "azurerm_network_security_rule" "vault_sg_mon" {
 }
 
 resource "azurerm_network_security_rule" "vault_sg_consul" {
-  count                       = var.consul_enabled ? 1 : 0
+  count                       = var.vault_enabled && var.consul_enabled ? 1 : 0
   name                        = "${var.vault_sg_name}-consul"
   access                      = "Allow"
   direction                   = "Inbound"

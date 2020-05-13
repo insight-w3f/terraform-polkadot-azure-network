@@ -37,95 +37,35 @@ resource "azurerm_subnet" "public" {
   virtual_network_name = azurerm_virtual_network.vpc_network.name
 }
 
-resource "azurerm_subnet_network_security_group_association" "public_bastion" {
-  count                     = var.bastion_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.bastion_nsg[0].id
-  subnet_id                 = azurerm_subnet.public.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "public_consul" {
-  count                     = var.consul_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.consul_nsg[0].id
-  subnet_id                 = azurerm_subnet.public.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "public_hids" {
-  count                     = var.hids_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.hids_nsg[0].id
-  subnet_id                 = azurerm_subnet.public.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "public_logging" {
-  count                     = var.logging_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.logging_nsg[0].id
-  subnet_id                 = azurerm_subnet.public.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "public_monitoring" {
-  count                     = var.monitoring_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.monitoring_nsg[0].id
-  subnet_id                 = azurerm_subnet.public.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "public_sentry" {
-  count                     = true ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.sentry_node_nsg[0].id
-  subnet_id                 = azurerm_subnet.public.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "public_vault" {
-  count                     = var.vault_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.vault_nsg[0].id
-  subnet_id                 = azurerm_subnet.public.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "private_bastion" {
-  count                     = var.bastion_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.bastion_nsg[0].id
-  subnet_id                 = azurerm_subnet.private.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "private_consul" {
-  count                     = var.consul_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.consul_nsg[0].id
-  subnet_id                 = azurerm_subnet.private.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "private_hids" {
-  count                     = var.hids_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.hids_nsg[0].id
-  subnet_id                 = azurerm_subnet.private.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "private_logging" {
-  count                     = var.logging_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.logging_nsg[0].id
-  subnet_id                 = azurerm_subnet.private.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "private_monitoring" {
-  count                     = var.monitoring_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.monitoring_nsg[0].id
-  subnet_id                 = azurerm_subnet.private.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "private_sentry" {
-  count                     = true ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.sentry_node_nsg[0].id
-  subnet_id                 = azurerm_subnet.private.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "private_vault" {
-  count                     = var.vault_enabled ? 1 : 0
-  network_security_group_id = azurerm_network_security_group.vault_nsg[0].id
-  subnet_id                 = azurerm_subnet.public.id
-}
-
 resource "azurerm_subnet" "private" {
   address_prefix       = local.private_subnets[0]
   name                 = local.private_subnet_names[0]
   resource_group_name  = data.azurerm_resource_group.this.name
   virtual_network_name = azurerm_virtual_network.vpc_network.name
+}
+
+resource "azurerm_network_security_group" "public_nsg" {
+  location            = data.azurerm_resource_group.this.location
+  name                = "public-nsg"
+  resource_group_name = data.azurerm_resource_group.this.name
+  tags                = module.label.tags
+}
+
+resource "azurerm_network_security_group" "private_nsg" {
+  location            = data.azurerm_resource_group.this.location
+  name                = "private-nsg"
+  resource_group_name = data.azurerm_resource_group.this.name
+  tags                = module.label.tags
+}
+
+resource "azurerm_subnet_network_security_group_association" "public" {
+  network_security_group_id = azurerm_network_security_group.public_nsg.id
+  subnet_id                 = azurerm_subnet.public.id
+}
+
+resource "azurerm_subnet_network_security_group_association" "private" {
+  network_security_group_id = azurerm_network_security_group.private_nsg.id
+  subnet_id                 = azurerm_subnet.private.id
 }
 
 resource "azurerm_route_table" "public" {
