@@ -1,5 +1,5 @@
 locals {
-  public_root   = join(".", ["gcp", var.network_name, var.namespace, var.root_domain_name])
+  public_root   = join(".", ["azure", var.network_name, var.namespace, var.root_domain_name])
   public_domain = join(".", [data.azurerm_resource_group.this.location, local.public_root])
 }
 
