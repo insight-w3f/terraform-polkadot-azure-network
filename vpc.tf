@@ -48,14 +48,14 @@ resource "azurerm_network_security_group" "public_nsg" {
   location            = data.azurerm_resource_group.this.location
   name                = "public-nsg"
   resource_group_name = data.azurerm_resource_group.this.name
-  tags                = module.label.tags
+  tags                = var.tags
 }
 
 resource "azurerm_network_security_group" "private_nsg" {
   location            = data.azurerm_resource_group.this.location
   name                = "private-nsg"
   resource_group_name = data.azurerm_resource_group.this.name
-  tags                = module.label.tags
+  tags                = var.tags
 }
 
 resource "azurerm_subnet_network_security_group_association" "public" {

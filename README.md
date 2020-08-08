@@ -33,12 +33,6 @@ module "defaults" {
 No issue is creating limit on this module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
-
-| Name | Version |
-|------|---------|
-| terraform | >= 0.12 |
-
 ## Providers
 
 | Name | Version |
@@ -49,7 +43,7 @@ No issue is creating limit on this module.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+|------|-------------|------|---------|:-----:|
 | azure\_resource\_group\_name | Name of Azure Resource Group | `string` | n/a | yes |
 | bastion\_enabled | Boolean to enable a bastion host.  All ssh traffic restricted to bastion | `bool` | `false` | no |
 | bastion\_sg\_name | Name for the bastion security group | `string` | `"bastion-sg"` | no |
@@ -59,7 +53,6 @@ No issue is creating limit on this module.
 | corporate\_ip | The corporate IP you want to restrict ssh traffic to | `string` | `""` | no |
 | create\_internal\_domain | Boolean to create an internal split horizon DNS | `bool` | `false` | no |
 | create\_public\_regional\_subdomain | Boolean to create regional subdomain - ie us-east-1.example.com | `bool` | `false` | no |
-| environment | The environment | `string` | `""` | no |
 | hids\_enabled | Boolean to enable intrusion detection systems traffic | `bool` | `false` | no |
 | hids\_sg\_name | Name for the HIDS security group | `string` | `"hids-sg"` | no |
 | internal\_tld | The top level domain for the internal DNS | `string` | `"internal"` | no |
@@ -67,12 +60,12 @@ No issue is creating limit on this module.
 | logging\_sg\_name | Name for the logging security group | `string` | `"logging-sg"` | no |
 | monitoring\_enabled | Boolean to for prometheus related traffic | `bool` | `false` | no |
 | monitoring\_sg\_name | Name for the monitoring security group | `string` | `"monitoring-sg"` | no |
-| namespace | The namespace to deploy into | `string` | `""` | no |
+| namespace | The namespace to deploy into | `string` | `"polkadot"` | no |
 | network\_name | The network name, ie kusama / mainnet | `string` | `""` | no |
 | owner | n/a | `string` | `""` | no |
 | root\_domain\_name | The public domain | `string` | `""` | no |
 | sentry\_node\_sg\_name | Name for the public node security group | `string` | `"sentry-sg"` | no |
-| stage | The stage of the deployment | `string` | `""` | no |
+| tags | Key value pair to tag all resources | `map(string)` | `{}` | no |
 | vault\_enabled | Boolean to allow vault related traffic | `bool` | `false` | no |
 | vault\_sg\_name | Name for the vault security group | `string` | `"vault-sg"` | no |
 | vpc\_name | The name of the VPC | `string` | `"polkadot"` | no |

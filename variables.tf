@@ -1,22 +1,16 @@
 ########
 # Label
 ########
-variable "environment" {
-  description = "The environment"
-  type        = string
-  default     = ""
-}
-
 variable "namespace" {
   description = "The namespace to deploy into"
   type        = string
-  default     = ""
+  default     = "polkadot"
 }
 
-variable "stage" {
-  description = "The stage of the deployment"
-  type        = string
-  default     = ""
+variable "tags" {
+  description = "Key value pair to tag all resources"
+  type        = map(string)
+  default     = {}
 }
 
 variable "network_name" {

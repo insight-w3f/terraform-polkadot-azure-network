@@ -3,7 +3,7 @@ resource "azurerm_network_security_group" "vault_nsg" {
   location            = data.azurerm_resource_group.this.location
   name                = "${var.vault_sg_name}-nsg"
   resource_group_name = data.azurerm_resource_group.this.name
-  tags                = module.label.tags
+  tags                = var.tags
 }
 
 resource "azurerm_application_security_group" "vault_asg" {
@@ -11,7 +11,7 @@ resource "azurerm_application_security_group" "vault_asg" {
   location            = data.azurerm_resource_group.this.location
   name                = "${var.vault_sg_name}-asg"
   resource_group_name = data.azurerm_resource_group.this.name
-  tags                = module.label.tags
+  tags                = var.tags
 }
 
 resource "azurerm_network_security_rule" "vault_sg_ssh" {
