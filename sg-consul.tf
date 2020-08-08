@@ -3,7 +3,7 @@ resource "azurerm_application_security_group" "consul_asg" {
   location            = data.azurerm_resource_group.this.location
   name                = "${var.consul_sg_name}-asg"
   resource_group_name = data.azurerm_resource_group.this.name
-  tags                = module.label.tags
+  tags                = var.tags
 }
 
 resource "azurerm_network_security_rule" "consul_sg_ssh" {
