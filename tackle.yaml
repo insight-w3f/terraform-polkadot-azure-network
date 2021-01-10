@@ -6,23 +6,23 @@ print_:
 
 available_regions_:
   type: azure_regions
-  region: "{{ nuki.region }}"
-  when: "{{ nuki.region is not defined }}"
+  region: "{{ region }}"
+  when: "{{ region is not defined }}"
 
 region:
   type: select
   message: Which region would you like to deploy into?
-  choices: "{{ nuki.available_regions_ }}"
-  when: "{{ nuki.region is not defined }}"
+  choices: "{{ available_regions_ }}"
+  when: "{{ region is not defined }}"
 
 available_azs_:
   type: azure_azs
-  region: "{{ nuki.region }}"
+  region: "{{ region }}"
 
 azs:
   type: checkbox
-  message: "What availability zones do you want to deploy in {{ nuki.region }}?"
-  choices: "{{ nuki.available_azs_ }}"
+  message: "What availability zones do you want to deploy in {{ region }}?"
+  choices: "{{ available_azs_ }}"
 
 dns_type_:
   type: select
@@ -33,21 +33,21 @@ dns_type_:
     - cloudflare_dns: Cloudflare based multi-region georouted
 
 cloudflare_enable:
-  type: stat
+  type: var
   input: true
-  when: "{{ 'cloudflare_dns' in nuki.dns_type_ }}"
+  when: "{{ 'cloudflare_dns' in dns_type_ }}"
 
 root_domain_name:
   type: input
-  when: "{{ nuki.dns_type_ in ['single_dns', 'cloudflare_dns'] }}"
+  when: "{{ dns_type_ in ['single_dns', 'cloudflare_dns'] }}"
   message: What is your root domain - ie examle.com?
 
 subdomain:
   type: input
-  when: "{{ nuki.dns_type_ in ['single_dns', 'cloudflare_dns'] }}"
+  when: "{{ dns_type_ in ['single_dns', 'cloudflare_dns'] }}"
   message: |
-    What subdomain? Example: <your subdomain>.example.com{% if nuki.dns_type_ == 'single_dns' %}
-      - Leave blank for root dns records > {% elif nuki.dns_type_ == 'cloudflare_dns' %}
+    What subdomain? Example: <your subdomain>.example.com{% if dns_type_ == 'single_dns' %}
+      - Leave blank for root dns records > {% elif dns_type_ == 'cloudflare_dns' %}
       - If georouted and left blank, will fallback on `namespace` variable
         which defaults to polkadot per the convention:
         <region>.aws.<mainnet/kusama>.<namespace>.example.com
@@ -60,7 +60,7 @@ vars_confirm_:
 
 sg_vars:
   type: terraform_variables
-  when: "{{ nuki.vars_confirm_ }}"
+  when: "{{ vars_confirm_ }}"
   variables_file: variables.tf
   merge: true
   var_list:
